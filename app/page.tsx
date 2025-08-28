@@ -647,23 +647,21 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
                 <div>
                   <h3 className="text-lg text-[#066067] md:text-xl font-medium mb-4">Address</h3>
                   <p className="text-sm md:text-base leading-relaxed">
-                    W International Pvt Ltd, 123 Business Park, Kochi, Kerala, India - 682001
+                    W International Pvt Ltd, Kannur
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg text-[#066067] md:text-xl font-medium mb-4">Contact</h3>
                   <div className="space-y-2">
-                    <p className="text-sm md:text-base">+91 98765 43210</p>
-                    <p className="text-sm md:text-base">+91 91234 56789</p>
+                    <p className="text-sm md:text-base">+91 7666957476</p>
                   </div>
                 </div>
 
                 <div>
                   <h3 className="text-lg text-[#066067] md:text-xl font-medium mb-4">Email</h3>
                   <div className="space-y-2">
-                    <p className="text-sm md:text-base">contact@winternational.com</p>
-                    <p className="text-sm md:text-base">info@winternational.com</p>
+                    <p className="text-sm md:text-base">info@winternational.in</p>
                   </div>
                 </div>
 
@@ -783,10 +781,10 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
             <div className="text-center">
               <h3 className="text-lg font-medium mb-4">Contact</h3>
               <div className="space-y-3 mb-6">
-                <p className="text-sm">+91 91234 56789</p>
-                <p className="text-sm">contact@winternational.com</p>
+                <p className="text-sm">+91 7666957476</p>
+                <p className="text-sm">info@winternational.in</p>
                 <p className="text-sm leading-relaxed">
-                  W International Pvt Ltd, 123 Business Park, Kochi, Kerala, India - 682001
+                  W International Pvt Ltd, Kannur
                 </p>
               </div>
 
