@@ -312,10 +312,10 @@ From weddings to large-scale corporate functions, we bring together creativity, 
             <div className="text-center">
               <h3 className="text-lg font-medium mb-4">Contact</h3>
               <div className="space-y-3 mb-6">
-                <p className="text-sm">+91 91234 56789</p>
-                <p className="text-sm">contact@winternational.com</p>
+                <p className="text-sm">+91 7666957476</p>
+                <p className="text-sm">info@winternational.in</p>
                 <p className="text-sm leading-relaxed">
-                  W International Pvt Ltd, 123 Business Park, Kochi, Kerala, India - 682001
+                  W International Pvt Ltd, Kannur
                 </p>
               </div>
 
