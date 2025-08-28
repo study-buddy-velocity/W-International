@@ -2,54 +2,80 @@
 
 import { Button } from "@/components/ui/button"
 import { ChevronRight, ChevronDown, Menu, X, ChevronLeft } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
 
 export default function HomePage() {
-    const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0)
+  const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0)
+  const [itemsPerView, setItemsPerView] = useState(5) // Default for large screens
 
-const galleryImages = [
-  "/assets/gallery-1.png",
-  "/assets/gallery-2.png",
-  "/assets/gallery-3.png",
-  "/assets/gallery-4.png",
-  "/assets/gallery-5.png",
-  "/assets/gallery-1.png",
-  "/assets/gallery-2.png",
-  "/assets/gallery-3.png",
-  "/assets/gallery-4.png",
-  "/assets/gallery-5.png",
-    "/assets/gallery-1.png",
-  "/assets/gallery-2.png",
-  "/assets/gallery-3.png",
-  "/assets/gallery-4.png",
-  "/assets/gallery-5.png",
-  "/assets/gallery-1.png",
-  "/assets/gallery-2.png",
-  "/assets/gallery-3.png",
-  "/assets/gallery-4.png",
-  "/assets/gallery-5.png",
-]
+  const galleryImages = [
+    "/assets/bussiness-wipes.png",
+    "/assets/gallery-2.png",
+    "/assets/gallery-3.png",
+    "/assets/gallery-4.png",
+    "/assets/business-event.png",
+    "/assets/bussiness-wipes.png",
+    "/assets/gallery-2.png",
+    "/assets/gallery-3.png",
+    "/assets/gallery-4.png",
+    "/assets/business-event.png",
+    "/assets/bussiness-wipes.png",
+    "/assets/gallery-2.png",
+    "/assets/gallery-3.png",
+    "/assets/gallery-4.png",
+    "/assets/business-event.png",
+    "/assets/bussiness-wipes.png",
+    "/assets/gallery-2.png",
+    "/assets/gallery-3.png",
+    "/assets/gallery-4.png",
+    "/assets/business-event.png",
+  ]
 
-const nextGalleryImage = () => {
-  setCurrentGalleryIndex((prev) => (prev + 1) % galleryImages.length)
-}
+  // Handle responsive items per view
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth
+      if (width < 640) {
+        setItemsPerView(1)
+      } else if (width < 768) {
+        setItemsPerView(2)
+      } else if (width < 1024) {
+        setItemsPerView(3)
+      } else {
+        setItemsPerView(5)
+      }
+    }
 
-const prevGalleryImage = () => {
-  setCurrentGalleryIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length)
-}
+    // Set initial value
+    handleResize()
+
+    // Add event listener
+    window.addEventListener('resize', handleResize)
+
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const nextGalleryImage = () => {
+    setCurrentGalleryIndex((prev) => (prev + 1) % galleryImages.length)
+  }
+
+  const prevGalleryImage = () => {
+    setCurrentGalleryIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length)
+  }
 
   return (
     <div className="min-h-screen">
       {/* Hero Section with Background */}
       <div
-className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
+        className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
              min-h-[60vh] md:min-h-screen"
-                     style={{
+        style={{
           backgroundImage: `url(/assets/main-hero.png)`,
           // backgroundSize: "cover",
           backgroundPosition: "center",
@@ -57,174 +83,172 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
         }}
       >
         {/* Navigation */}
-  <nav className="relative z-10 p-4 md:p-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="bg-white/95 backdrop-blur-sm rounded-2xl px-4 md:px-8 py-4 shadow-lg">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-                <a href ="/" className="flex items-center space-x-2">
+        <nav className="relative z-10 p-4 md:p-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="bg-white/95 backdrop-blur-sm rounded-2xl px-4 md:px-8 py-4 shadow-lg">
+              <div className="flex items-center justify-between">
+                {/* Logo */}
+                <a href="/" className="flex items-center space-x-2">
                   <Image 
                     src="/assets/logo-nav.png" 
                     alt="Logo" 
-                width={240}
-                height={100}
+                    width={240}
+                    height={100}
                     className="rounded-lg"
                   />
                 </a>
 
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden p-2"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6 text-gray-900" />
-              ) : (
-                <Menu className="w-6 h-6 text-gray-900" />
-              )}
-            </button>
+                {/* Mobile Menu Button */}
+                <button
+                  className="md:hidden p-2"
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                >
+                  {isMobileMenuOpen ? (
+                    <X className="w-6 h-6 text-gray-900" />
+                  ) : (
+                    <Menu className="w-6 h-6 text-gray-900" />
+                  )}
+                </button>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8 relative ">
-              <Link
-                href="/"
-                className="text-sm lg:text-base font-medium text-gray-900 hover:text-gray-700 transition-colors"
-              >
-                Home
-              </Link>
-              <Link
-                href="#about"
-                className="text-sm lg:text-base font-medium text-gray-900 hover:text-gray-700 transition-colors"
-              >
-                About Us
-              </Link>
-
-            {/* Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setOpen(!open)}
-                className="flex items-center space-x-1 hover:text-[#0C7178] transition-colors"
-              >
-                <span>Our Business</span>
-                <ChevronDown className="w-4 h-4" />
-              </button>
-
-              {open && (
-                <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-[9999]">
+                {/* Desktop Navigation */}
+                <div className="hidden md:flex items-center space-x-8 relative ">
                   <Link
-                    href="/wipes"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    href="/"
+                    className="text-sm lg:text-base font-medium text-gray-900 hover:text-gray-700 transition-colors"
                   >
-                    Wipes
+                    Home
                   </Link>
                   <Link
-                    href="/cannanore-dispo"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    href="#about"
+                    className="text-sm lg:text-base font-medium text-gray-900 hover:text-gray-700 transition-colors"
                   >
-                    Cannanore Dispo
+                    About Us
+                  </Link>
+
+                  {/* Dropdown */}
+                  <div className="relative">
+                    <button
+                      onClick={() => setOpen(!open)}
+                      className="flex items-center space-x-1 hover:text-[#0C7178] transition-colors"
+                    >
+                      <span>Our Business</span>
+                      <ChevronDown className="w-4 h-4" />
+                    </button>
+
+                    {open && (
+                      <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-[9999]">
+                        <Link
+                          href="/wipes"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Wipes
+                        </Link>
+                        <Link
+                          href="/cannanore-dispo"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Cannanore Dispo
+                        </Link>
+                        <Link
+                          href="/event-management"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Event Management
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+
+                  <Link
+                    href="#clients"
+                    className="text-sm lg:text-base font-medium text-gray-900 hover:text-gray-700 transition-colors"
+                  >
+                    Clients
                   </Link>
                   <Link
-                    href="/event-management"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    href="#gallery"
+                    className="text-sm lg:text-base font-medium text-gray-900 hover:text-gray-700 transition-colors"
                   >
-                    Event Management
+                    Gallery
+                  </Link>
+                  <Link href="#contact" className="bg-[#2DD8E5] hover:bg-[#25C4D1] text-white px-3 lg:px-4 py-2 rounded-xl text-sm lg:text-base font-medium">
+                    Contact
                   </Link>
                 </div>
-              )}
-            </div>
+              </div>
 
-              <Link
-                href="#clients"
-                className="text-sm lg:text-base font-medium text-gray-900 hover:text-gray-700 transition-colors"
-              >
-                Clients
-              </Link>
-              <Link
-                href="#gallery"
-                className="text-sm lg:text-base font-medium text-gray-900 hover:text-gray-700 transition-colors"
-              >
-                Gallery
-              </Link>
-              <Link href="#contact" className="bg-[#2DD8E5] hover:bg-[#25C4D1] text-white px-3 lg:px-4 py-2 rounded-xl text-sm lg:text-base font-medium">
-                Contact
-              </Link>
+              {/* Mobile Navigation */}
+              {isMobileMenuOpen && (
+                <div className="md:hidden mt-4 pt-4 border-t border-gray-200">
+                  <div className="flex flex-col space-y-4">
+                    <Link
+                      href="/"
+                      className="text-sm font-medium text-gray-900 hover:text-gray-700 transition-colors"
+                    >
+                      Home
+                    </Link>
+                    <Link
+                      href="/about"
+                      className="text-sm font-medium text-gray-900 hover:text-gray-700 transition-colors"
+                    >
+                      About Us
+                    </Link>
+
+                    {/* Mobile Dropdown */}
+                    <div className="relative">
+                      <button
+                        onClick={() => setOpen(!open)}
+                        className="flex items-center space-x-1 hover:text-[#0C7178] transition-colors"
+                      >
+                        <span>Our Business</span>
+                        <ChevronDown className="w-4 h-4" />
+                      </button>
+
+                      {open && (
+                        <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+                          <Link
+                            href="/wipes"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          >
+                            Wipes
+                          </Link>
+                          <Link
+                            href="/cannanore-dispo"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          >
+                            Cannanore Dispo
+                          </Link>
+                          <Link
+                            href="/event-management"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          >
+                            Event Management
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+
+                    <Link
+                      href="/clients"
+                      className="text-sm font-medium text-gray-900 hover:text-gray-700 transition-colors"
+                    >
+                      Clients
+                    </Link>
+                    <Link
+                      href="/gallery"
+                      className="text-sm font-medium text-gray-900 hover:text-gray-700 transition-colors"
+                    >
+                      Gallery
+                    </Link>
+                    <Button className="bg-[#2DD8E5] hover:bg-[#25C4D1] text-white px-4 py-2 rounded-xl text-sm font-medium w-full">
+                      Contact
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-
-          {/* Mobile Navigation */}
-          {isMobileMenuOpen && (
-            <div className="md:hidden mt-4 pt-4 border-t border-gray-200">
-              <div className="flex flex-col space-y-4">
-                <Link
-                  href="/"
-                  className="text-sm font-medium text-gray-900 hover:text-gray-700 transition-colors"
-                >
-                  Home
-                </Link>
-                <Link
-                  href="/about"
-                  className="text-sm font-medium text-gray-900 hover:text-gray-700 transition-colors"
-                >
-                  About Us
-                </Link>
-
-          {/* Mobile Dropdown */}
-                      {/* Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setOpen(!open)}
-                className="flex items-center space-x-1 hover:text-[#0C7178] transition-colors"
-              >
-                <span>Our Business</span>
-                <ChevronDown className="w-4 h-4" />
-              </button>
-
-              {open && (
-                <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50">
-                  <Link
-                    href="/wipes"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    Wipes
-                  </Link>
-                  <Link
-                    href="/cannanore-dispo"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    Cannanore Dispo
-                  </Link>
-                  <Link
-                    href="/event-management"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    Event Management
-                  </Link>
-                </div>
-              )}
-            </div>
-
-                <Link
-                  href="/clients"
-                  className="text-sm font-medium text-gray-900 hover:text-gray-700 transition-colors"
-                >
-                  Clients
-                </Link>
-                <Link
-                  href="/gallery"
-                  className="text-sm font-medium text-gray-900 hover:text-gray-700 transition-colors"
-                >
-                  Gallery
-                </Link>
-                <Button className="bg-[#2DD8E5] hover:bg-[#25C4D1] text-white px-4 py-2 rounded-xl text-sm font-medium w-full">
-                  Contact
-                </Button>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </nav>
-
+        </nav>
 
         {/* Hero Content */}
         <div className="relative max-w-7xl mx-auto px-4 md:px-6 pt-12 md:pt-20">
@@ -237,15 +261,14 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
               Proudly rooted in India.
             </h1>
 
-          <div className="flex items-center space-x-2">
-            <Button className="bg-transparent border-2 border-white text-black hover:bg-[#25C4D1] hover:text-white px-6 md:px-8 py-3 md:py-4 rounded-xl text-sm md:text-base font-medium transition-all duration-300">
-              Explore More
-            </Button>
-            <Button className="bg-transparent border-2 border-white text-black hover:bg-[#25C4D1] hover:text-white p-3 md:p-4 rounded-xl transition-all duration-300">
-              <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
-            </Button>
-          </div>
-
+            <div className="flex items-center space-x-2">
+              <Button className="bg-transparent border-2 border-white text-black hover:bg-[#25C4D1] hover:text-white px-6 md:px-8 py-3 md:py-4 rounded-xl text-sm md:text-base font-medium transition-all duration-300">
+                Explore More
+              </Button>
+              <Button className="bg-transparent border-2 border-white text-black hover:bg-[#25C4D1] hover:text-white p-3 md:p-4 rounded-xl transition-all duration-300">
+                <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -323,14 +346,12 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
             {/* WIPES Card */}
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-60 md:h-80 bg-gradient-to-br from-green-400 to-green-600 relative overflow-hidden">
-                {/* <img src="/assets/business-wipes.png" alt="WIPES Products" className="w-full h-full object-cover" /> */}
                 <Image
                   src="/assets/bussiness-wipes.png"
                   alt="Logo"
                   fill
                   className="object-cover"
                 />
-
                 <div className="absolute bottom-4 right-4">
                   <a href="/wipes" className="bg-white text-black hover:bg-gray-100 px-4 py-2 rounded-lg text-sm font-medium">
                     View More
@@ -373,7 +394,7 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
                   fill
                   className="object-cover"
                 />           
-                     <div className="absolute bottom-4 right-4">
+                <div className="absolute bottom-4 right-4">
                   <a href="/event-management" className="bg-white text-black hover:bg-gray-100 px-4 py-2 rounded-lg text-sm font-medium">
                     View More
                   </a>
@@ -400,82 +421,82 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
           </div>
 
           {/* Client Logos Grid */}
-<div className="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-8 md:gap-8 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-8 md:gap-8 mb-8">
             {/* Top Row */}
-<div className="flex items-center justify-center h-24 md:h-32">
-  <Image
-    src="/assets/client-1.png"
-    alt="Logo"
-    width={120}
-    height={80}
-    className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
-  />
-</div>
-<div className="flex items-center justify-center h-24 md:h-32">
-  <Image
-    src="/assets/client-2.png"
-    alt="Logo"
-    width={120}
-    height={80}
-    className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
-  />
-</div>
-<div className="flex items-center justify-center h-24 md:h-32">
-  <Image
-    src="/assets/client-3.png"
-    alt="Logo"
-    width={120}
-    height={80}
-    className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
-  />
-</div>
-<div className="flex items-center justify-center h-24 md:h-32">
-  <Image
-    src="/assets/client-4.png"
-    alt="Logo"
-    width={120}
-    height={80}
-    className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
-  />
-</div>
-<div className="flex items-center justify-center h-24 md:h-32">
-  <Image
-    src="/assets/client-5.png"
-    alt="Logo"
-    width={120}
-    height={80}
-    className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
-  />
-</div>
+            <div className="flex items-center justify-center h-24 md:h-32">
+              <Image
+                src="/assets/client-1.png"
+                alt="Logo"
+                width={120}
+                height={80}
+                className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
+              />
+            </div>
+            <div className="flex items-center justify-center h-24 md:h-32">
+              <Image
+                src="/assets/client-2.png"
+                alt="Logo"
+                width={120}
+                height={80}
+                className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
+              />
+            </div>
+            <div className="flex items-center justify-center h-24 md:h-32">
+              <Image
+                src="/assets/client-3.png"
+                alt="Logo"
+                width={120}
+                height={80}
+                className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
+              />
+            </div>
+            <div className="flex items-center justify-center h-24 md:h-32">
+              <Image
+                src="/assets/client-4.png"
+                alt="Logo"
+                width={120}
+                height={80}
+                className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
+              />
+            </div>
+            <div className="flex items-center justify-center h-24 md:h-32">
+              <Image
+                src="/assets/client-5.png"
+                alt="Logo"
+                width={120}
+                height={80}
+                className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
+              />
+            </div>
 
             {/* Bottom Row */}
-<div className="flex items-center justify-center h-24 md:h-32">
-  <Image
-    src="/assets/client-6.png"
-    alt="Logo"
-    width={120}
-    height={80}
-    className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
-  />
-</div>
             <div className="flex items-center justify-center h-24 md:h-32">
-  <Image
-    src="/assets/client-7.png"
-    alt="Logo"
-    width={120}
-    height={80}
-    className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
-  />
-</div>
-<div className="flex items-center justify-center h-24 md:h-32">
-  <Image
-    src="/assets/client-8.png"
-    alt="Logo"
-    width={120}
-    height={80}
-    className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
-  />
-</div>
+              <Image
+                src="/assets/client-6.png"
+                alt="Logo"
+                width={120}
+                height={80}
+                className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
+              />
+            </div>
+            <div className="flex items-center justify-center h-24 md:h-32">
+              <Image
+                src="/assets/client-7.png"
+                alt="Logo"
+                width={120}
+                height={80}
+                className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
+              />
+            </div>
+            <div className="flex items-center justify-center h-24 md:h-32">
+              <Image
+                src="/assets/client-8.png"
+                alt="Logo"
+                width={120}
+                height={80}
+                className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
+              />
+            </div>
             <div className="flex items-center justify-center h-24 md:h-32">
               <Image
                 src="/assets/client-9.png"
@@ -485,15 +506,15 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
                 className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
               />
             </div>
-<div className="flex items-center justify-center h-24 md:h-32">
-  <Image
-    src="/assets/client-10.png"
-    alt="Logo"
-    width={120}
-    height={80}
-    className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
-  />
-</div>
+            <div className="flex items-center justify-center h-24 md:h-32">
+              <Image
+                src="/assets/client-10.png"
+                alt="Logo"
+                width={120}
+                height={80}
+                className="object-contain shadow-md hover:shadow-lg transition-shadow rounded-lg"
+              />
+            </div>
           </div>
 
           <div className="text-center">
@@ -528,27 +549,25 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
           <div 
             className="flex transition-transform duration-500 ease-in-out"
             style={{
-              transform: `translateX(-${currentGalleryIndex * (100 / (
-                window.innerWidth < 640 ? 1 : 
-                window.innerWidth < 768 ? 2 : 
-                window.innerWidth < 1024 ? 3 : 5
-              ))}%)`,
-              width: `${(galleryImages.length / (
-                window.innerWidth < 640 ? 1 : 
-                window.innerWidth < 768 ? 2 : 
-                window.innerWidth < 1024 ? 3 : 5
-              )) * 100}%`,
+              transform: `translateX(-${currentGalleryIndex * (100 / itemsPerView)}%)`,
             }}
           >
             {galleryImages.map((image, index) => (
-              <div key={index} className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/5 px-1 sm:px-2">
-                <div className="w-full h-48 sm:h-56 md:h-60 lg:h-72 rounded-xl md:rounded-2xl overflow-hidden shadow-lg">
-                  <img
-                    src={image || "/placeholder.svg"}
-                    alt={`Gallery image ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+              <div 
+                key={index} 
+                className="flex-shrink-0 px-1 sm:px-2"
+                style={{ width: `${100 / itemsPerView}%` }}
+              >
+<div 
+  className="w-full aspect-[4/3] rounded-xl md:rounded-2xl overflow-hidden shadow-lg"
+>
+  <img
+    src={image || "/placeholder.svg"}
+    alt={`Gallery image ${index + 1}`}
+    className="w-full h-full object-cover"
+  />
+</div>
+
               </div>
             ))}
           </div>
@@ -565,7 +584,7 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
       
       {/* Optional: Gallery Indicators for mobile */}
       <div className="flex justify-center mt-4 space-x-2 sm:hidden">
-        {Array.from({ length: Math.ceil(galleryImages.length / 1) }).map((_, index) => (
+        {Array.from({ length: Math.ceil(galleryImages.length / itemsPerView) }).map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentGalleryIndex(index)}
@@ -578,8 +597,6 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
     </div>
   </div>
 </section>
-
-
 
       {/* Contact Us Section */}
       <section id="contact" className="py-8 md:py-12 bg-white">
@@ -682,24 +699,24 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
 
                 <div>
                   <h3 className="text-lg text-[#066067] md:text-xl font-medium mb-4">Stay Connected</h3>
- {/* Social icons */}
-  <div className="flex   space-x-4">
-    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
-      <Facebook size={20} className="text-white" />
-    </a>
-    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
-      <Twitter size={20} className="text-white" />
-    </a>
-    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
-      <Instagram size={20} className="text-white" />
-    </a>
-    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
-      <Linkedin size={20} className="text-white" />
-    </a>
-    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
-      <Youtube size={20} className="text-white" />
-    </a>
-  </div>
+                  {/* Social icons */}
+                  <div className="flex   space-x-4">
+                    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
+                      <Facebook size={20} className="text-white" />
+                    </a>
+                    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
+                      <Twitter size={20} className="text-white" />
+                    </a>
+                    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
+                      <Instagram size={20} className="text-white" />
+                    </a>
+                    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
+                      <Linkedin size={20} className="text-white" />
+                    </a>
+                    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
+                      <Youtube size={20} className="text-white" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -707,7 +724,7 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
         </div>
       </section>
 
-            {/* Map Section */}
+      {/* Map Section */}
       <section className="py-8 md:py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -728,44 +745,43 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12">
           <div className="grid md:grid-cols-4 gap-8">
             {/* Company Info */}
-<div className="md:col-span-2 text-center">
-  {/* Logo centered */}
-  <div className="flex items-center justify-center mb-4">
-    <Image 
-      src="/assets/logo-footer.png" 
-      alt="Logo" 
-      width={260}
-      height={260} 
-      className="rounded-lg"
-    />
-  </div>
+            <div className="md:col-span-2 text-center">
+              {/* Logo centered */}
+              <div className="flex items-center justify-center mb-4">
+                <Image 
+                  src="/assets/logo-footer.png" 
+                  alt="Logo" 
+                  width={260}
+                  height={260} 
+                  className="rounded-lg"
+                />
+              </div>
 
-  <p className="text-sm leading-relaxed mb-6 max-w-md mx-auto">
-    W International is a future-focused enterprise headquartered in Kerala, India. 
-    We build brands that enhance everyday life through thoughtful design, sustainable 
-    practices, and exceptional quality.
-  </p>
+              <p className="text-sm leading-relaxed mb-6 max-w-md mx-auto">
+                W International is a future-focused enterprise headquartered in Kerala, India. 
+                We build brands that enhance everyday life through thoughtful design, sustainable 
+                practices, and exceptional quality.
+              </p>
 
-  {/* Social icons */}
-  <div className="flex justify-center space-x-4">
-    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
-      <Facebook size={20} className="text-white" />
-    </a>
-    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
-      <Twitter size={20} className="text-white" />
-    </a>
-    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
-      <Instagram size={20} className="text-white" />
-    </a>
-    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
-      <Linkedin size={20} className="text-white" />
-    </a>
-    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
-      <Youtube size={20} className="text-white" />
-    </a>
-  </div>
-</div>
-
+              {/* Social icons */}
+              <div className="flex justify-center space-x-4">
+                <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
+                  <Facebook size={20} className="text-white" />
+                </a>
+                <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
+                  <Twitter size={20} className="text-white" />
+                </a>
+                <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
+                  <Instagram size={20} className="text-white" />
+                </a>
+                <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
+                  <Linkedin size={20} className="text-white" />
+                </a>
+                <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
+                  <Youtube size={20} className="text-white" />
+                </a>
+              </div>
+            </div>
 
             {/* Navigation */}
             <div className="text-center">
