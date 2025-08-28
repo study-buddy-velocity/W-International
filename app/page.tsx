@@ -512,35 +512,37 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
         </h2>
       </div>
     </div>
-
     <div className="relative">
       {/* Gallery Container */}
-      <div className="flex items-center justify-center space-x-4 relative">
+      <div className="flex items-center justify-center space-x-2 md:space-x-4 relative">
         {/* Left Arrow */}
         <button
           onClick={prevGalleryImage}
-          className="bg-[#2DD8E5] hover:bg-[#25C4D1] text-white p-3 rounded-full shadow-lg transition-colors z-20"
+          className="bg-[#2DD8E5] hover:bg-[#25C4D1] text-white p-2 md:p-3 rounded-full shadow-lg transition-colors z-20 flex-shrink-0"
         >
-          <ChevronLeft className="w-6 h-6" />
+          <ChevronLeft className="w-4 h-4 md:w-6 md:h-6" />
         </button>
-
+        
         {/* Gallery Images */}
-        <div className="flex space-x-4 overflow-hidden relative w-full max-w-6xl">
-         {/* Left Fade */}
-{/* <div className="absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-gray-50 to-transparent pointer-events-none z-10"></div> */}
-
-{/* Right Fade (fixed direction) */}
-{/* <div className="absolute right-0 top-0 h-full w-20 bg-gradient-to-l from-transparent to-gray-50 pointer-events-none z-10"></div> */}
-
-          <div className="flex transition-transform duration-500 ease-in-out"
+        <div className="flex-1 overflow-hidden relative max-w-6xl">
+          <div 
+            className="flex transition-transform duration-500 ease-in-out"
             style={{
-              transform: `translateX(-${currentGalleryIndex * (100 / 5)}%)`,
-              width: `${(galleryImages.length / 5) * 100}%`,
+              transform: `translateX(-${currentGalleryIndex * (100 / (
+                window.innerWidth < 640 ? 1 : 
+                window.innerWidth < 768 ? 2 : 
+                window.innerWidth < 1024 ? 3 : 5
+              ))}%)`,
+              width: `${(galleryImages.length / (
+                window.innerWidth < 640 ? 1 : 
+                window.innerWidth < 768 ? 2 : 
+                window.innerWidth < 1024 ? 3 : 5
+              )) * 100}%`,
             }}
           >
             {galleryImages.map((image, index) => (
-              <div key={index} className="flex-shrink-0 w-1/5 px-2">
-                <div className="w-full h-60 md:h-72 rounded-2xl overflow-hidden shadow-lg">
+              <div key={index} className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/5 px-1 sm:px-2">
+                <div className="w-full h-48 sm:h-56 md:h-60 lg:h-72 rounded-xl md:rounded-2xl overflow-hidden shadow-lg">
                   <img
                     src={image || "/placeholder.svg"}
                     alt={`Gallery image ${index + 1}`}
@@ -551,14 +553,27 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
             ))}
           </div>
         </div>
-
+        
         {/* Right Arrow */}
         <button
           onClick={nextGalleryImage}
-          className="bg-[#2DD8E5] hover:bg-[#25C4D1] text-white p-3 rounded-full shadow-lg transition-colors z-20"
+          className="bg-[#2DD8E5] hover:bg-[#25C4D1] text-white p-2 md:p-3 rounded-full shadow-lg transition-colors z-20 flex-shrink-0"
         >
-          <ChevronRight className="w-6 h-6" />
+          <ChevronRight className="w-4 h-4 md:w-6 md:h-6" />
         </button>
+      </div>
+      
+      {/* Optional: Gallery Indicators for mobile */}
+      <div className="flex justify-center mt-4 space-x-2 sm:hidden">
+        {Array.from({ length: Math.ceil(galleryImages.length / 1) }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentGalleryIndex(index)}
+            className={`w-2 h-2 rounded-full transition-colors ${
+              index === currentGalleryIndex ? 'bg-[#2DD8E5]' : 'bg-gray-300'
+            }`}
+          />
+        ))}
       </div>
     </div>
   </div>
