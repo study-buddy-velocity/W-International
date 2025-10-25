@@ -1,12 +1,15 @@
 "use client"
 
-import { ChevronRight, Menu, X  } from "lucide-react"
+import { Menu, X, Send  } from "lucide-react"
 import { useState } from "react"
 import Image from "next/image"
-import { Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
+import WhatsAppIcon from "@/lib/WhatsAppIcon";
 
 export default function HomePage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+
 
   return (
     <div className="min-h-screen">
@@ -66,7 +69,7 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
                     Built For Growth
                   </a>
                   <a 
-                  href="/"
+                  href="/#contact"
                   className="bg-[#F6B368] hover:bg-[#e9bd8b] text-white px-3 lg:px-4 py-2 rounded-xl text-sm lg:text-base font-medium">
                     Contact Us
                   </a>
@@ -89,7 +92,7 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
                       Built For Growth
                     </a>
                     <a
-                      href="/"
+                      href="/#contact"
                      className="bg-[#F6B368] hover:bg-[#e9bd8b] text-white px-4 py-2 rounded-xl text-sm font-medium w-full">
                       Contact Us
                     </a>
@@ -103,12 +106,13 @@ className="relative bg-gradient-to-b from-[#2DD8E5] to-[#45B7D1] overflow-hidden
         {/* Hero Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 pt-12 md:pt-20">
           <div className="max-w-4xl">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium text-[#FFFFFF] leading-none mb-1 md:mb-2">
-              Cannanore
-            </h1>
-                        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium text-[#FFFFFF] leading-none mb-8 md:mb-12">
-             Dispo
-            </h1>
+<h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-medium text-white leading-none mb-2 md:mb-4">
+  Cannanore
+</h1>
+<h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-medium text-white leading-none mb-4 md:mb-6">
+  Dispo
+</h1>
+
             <br/>
                         <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light text-[#FFFFFF] leading-none mb-2 md:mb-4">
               Modern Convenience.
@@ -285,10 +289,15 @@ is redefining disposable products by combining quality, performance, and sustain
     <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
       <Facebook size={20} className="text-white" />
     </a>
-    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
-      <Twitter size={20} className="text-white" />
-    </a>
-    <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
+<a
+  href="https://wa.me/919539992023?text=Hello%20I%20am%20interested!"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors"
+>
+    <WhatsAppIcon size={20}  />
+</a>
+    <a href="https://www.instagram.com/wipesindia?igsh=ZGdleGtsOXJuNTFv&utm_source=qr" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
       <Instagram size={20} className="text-white" />
     </a>
     <a href="#" className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
@@ -317,7 +326,7 @@ is redefining disposable products by combining quality, performance, and sustain
                 <a href="/" className="block text-sm hover:text-white/80 transition-colors">
                   Clients
                 </a>
-                <a href="/" className="block text-sm hover:text-white/80 transition-colors">
+                <a href="/#contact" className="block text-sm hover:text-white/80 transition-colors">
                   Contact Us
                 </a>
               </div>
@@ -328,25 +337,29 @@ is redefining disposable products by combining quality, performance, and sustain
               <h3 className="text-lg font-medium mb-4">Contact</h3>
               <div className="space-y-3 mb-6">
                 <p className="text-sm">+91 7666957476</p>
+                <p className="text-sm">+91 9539992023</p>
+
                 <p className="text-sm">info@winternational.in</p>
                 <p className="text-sm leading-relaxed">
                   W International Pvt Ltd, Kannur
                 </p>
               </div>
 
-              <div>
-                <h4 className="text-sm font-medium mb-3">Get the latest information</h4>
-                <div className="flex">
-                  <input
-                    type="email"
-                    placeholder="Email Address"
-                    className="flex-1 px-3 py-2 bg-white/20 border border-white/30 rounded-l-lg text-sm placeholder-white/70 focus:outline-none focus:bg-white/30"
-                  />
-                  <button className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-r-lg transition-colors">
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
+    <div className="w-full max-w-sm">
+      <h4 className="text-lg font-semibold mb-3 text-black">
+        Get the latest information
+      </h4>
+      <div className="relative flex items-center">
+        <input
+          type="email"
+          placeholder="Email Address"
+          className="w-full px-4 py-3 rounded-full bg-[#C58844] text-black placeholder-black/60 focus:outline-none focus:bg-cyan-400/70 pr-14"
+        />
+        <button className="absolute right-1 bg-[#D79A57] hover:bg-[#D79A57] text-white p-3 rounded-full transition-colors">
+          <Send className="w-4 h-4 rotate-45" /> 
+        </button>
+      </div>
+    </div>
             </div>
           </div>
         </div>
